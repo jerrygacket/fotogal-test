@@ -22,7 +22,7 @@ class BaseComponent extends \yii\base\Component
             return new $this->nameClass;
         }
 
-        return $this->nameClass::findOne([$params]) ?? new $this->nameClass;
+        return $this->nameClass::findOne($params) ?? new $this->nameClass;
     }
 
     public function getDataProvider($params = []) {

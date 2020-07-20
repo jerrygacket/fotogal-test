@@ -33,14 +33,18 @@ class CatalogController extends \app\base\BaseController
         ]);
     }
 
-    public function actionEdit() {
+    public function actionEdit($id) {
         $component = \Yii::$app->catalog;
         $model = $component->getModel(
-            ArrayHelper::merge(
-                \Yii::$app->request->queryParams,
-                ['userId' => \Yii::$app->user->id, 'active' => true]
-            )
+            [
+                'id' => $id,
+                'userId' => \Yii::$app->user->id,
+            ]
         );
+
+        if (!$model->id) {
+            $this->redirect('/catalog');
+        }
 
         if (\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post())) {
             if ($component->updateCatalog($model)) {
@@ -65,6 +69,10 @@ class CatalogController extends \app\base\BaseController
             ]
         );
 
+        if (!$model->id) {
+            $this->redirect('/catalog');
+        }
+
         if ($model) {
             if ($component->deleteCatalog($model)) {
                 $this->redirect('/catalog');
@@ -74,14 +82,18 @@ class CatalogController extends \app\base\BaseController
         $this->redirect('/catalog');
     }
 
-    public function actionView() {
+    public function actionView($id) {
         $component = \Yii::$app->catalog;
         $model = $component->getModel(
-            ArrayHelper::merge(
-                \Yii::$app->request->queryParams,
-                ['userId' => \Yii::$app->user->id]
-            )
+            [
+                'id' => $id,
+                'userId' => \Yii::$app->user->id,
+            ]
         );
+
+        if (!$model->id) {
+            $this->redirect('/catalog');
+        }
 
         if ($model) {
             return $this->render('view', [
