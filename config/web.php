@@ -2,7 +2,9 @@
 
 use app\components\AuthComponent;
 use app\components\CatalogComponent;
+use app\components\UserFilesComponent;
 use app\models\Catalog;
+use app\models\UserFiles;
 use app\models\Users;
 
 $params = require __DIR__ . '/params.php';
@@ -42,6 +44,7 @@ $config = [
         ],
         'auth' => ['class'=> AuthComponent::class,'nameClass'=> Users::class],
         'catalog' => ['class'=> CatalogComponent::class,'nameClass'=> Catalog::class],
+        'images' => ['class'=> UserFilesComponent::class,'nameClass'=> UserFiles::class],
         'authManager' => ['class'=>'\yii\rbac\DbManager'],
         'cache' => [
             'class' => 'yii\caching\FileCache',

@@ -83,7 +83,7 @@ class CatalogController extends \app\base\BaseController
         if ($model) {
             return $this->render('view', [
                 'model' => $model,
-                'images' => $model->getUserFiles(),
+                'images' => $model->getUserFiles()->all(),
             ]);
         }
 
