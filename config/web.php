@@ -44,7 +44,11 @@ $config = [
         ],
         'auth' => ['class'=> AuthComponent::class,'nameClass'=> Users::class],
         'catalog' => ['class'=> CatalogComponent::class,'nameClass'=> Catalog::class],
-        'images' => ['class'=> UserFilesComponent::class,'nameClass'=> UserFiles::class],
+        'images' => [
+            'class'=> UserFilesComponent::class,
+            'nameClass'=> UserFiles::class,
+            'fileLoader' => \app\models\FileLoader::class
+        ],
         'authManager' => ['class'=>'\yii\rbac\DbManager'],
         'cache' => [
             'class' => 'yii\caching\FileCache',

@@ -43,14 +43,12 @@ class AuthComponent extends BaseComponent
             $model->addError('login','Неверный пользователь или пароль');
             $model->addError('password','Неверный пользователь или пароль');
             return false;
-            return false;
         }
 
         $user = $this->getUserFromLogin($model->getUsername());
         if(empty($user) || !$this->checkPassword($model->password,$user->password_hash)) {
             $model->addError('login','Неверный пользователь или пароль');
             $model->addError('password','Неверный пользователь или пароль');
-            return false;
             return false;
         }
 

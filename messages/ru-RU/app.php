@@ -16,4 +16,5 @@ return [
     'Shared' => 'Общий доступ',
     'Catalog ID' => 'ID каталога',
     'Remember Me' => 'Запоминть меня',
+    'Uploaded Files' => 'Фото',
 ];

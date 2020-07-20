@@ -16,7 +16,6 @@ $this->title = 'Главная - '.Yii::$app->name;
             <p class="lead">Добро пожаловать</p>
             <p><?= Yii::$app->user->identity->username ?></p>
             <p><?= \yii\helpers\Html::a('Альбомы', '/catalog', ['class' => 'btn btn-primary']) ?></p>
-            <p><?= \yii\helpers\Html::a('Добавить фото', '/user-files/add', ['class' => 'btn btn-info']) ?></p>
         <?php } ?>
 
     </div>

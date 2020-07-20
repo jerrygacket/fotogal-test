@@ -91,6 +91,25 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionRegister()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $component = Yii::$app->auth;
+        $model = $component->getModel();
+
+        if ($model->load(Yii::$app->request->post()) && $component->createUser($model)) {
+            $this->redirect('login');
+        }
+
+        $model->password = '';
+        return $this->render('register', [
+            'model' => $model,
+        ]);
+    }
+
     /**
      * Logout action.
      *

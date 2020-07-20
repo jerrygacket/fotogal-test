@@ -4,7 +4,10 @@
 namespace app\controllers;
 
 
+use app\models\FileLoader;
+use app\models\UserFiles;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 class CatalogController extends \app\base\BaseController
 {
@@ -88,5 +91,40 @@ class CatalogController extends \app\base\BaseController
         }
 
         $this->redirect('/catalog');
+    }
+
+    public function actionAddPhoto($id){
+        $component = \Yii::$app->catalog;
+        $model = $component->getModel([
+            'id' => $id,
+            'userId' => \Yii::$app->user->id,
+        ]);
+
+        if (\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post())) {
+            $model->uploadedFiles = UploadedFile::getInstances($model, 'uploadedFiles');
+            if (!empty($model->uploadedFiles)) {
+                $model->uploadFiles();
+                $this->redirect('/catalog/view?id='.$model->id);
+            }
+        }
+
+        return $this->render('add', ['model' => $model]);
+    }
+
+    public function actionDelPhoto(){
+        $component = \Yii::$app->catalog;
+        $model = $component->getModel(
+            ArrayHelper::merge(
+                \Yii::$app->request->queryParams,
+                ['userId' => \Yii::$app->user->id]
+            )
+        );
+
+        $fileId = \Yii::$app->request->post()['fileId'] ?? null;
+        if (\Yii::$app->request->isPost && ($userFile = $model->getFile($fileId))) {
+            $userFile->delete();
+        }
+
+        $this->redirect('/catalog/view?id='.$model->id);
     }
 }
