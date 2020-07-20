@@ -11,7 +11,7 @@ $this->title = 'Альбом '.$model->name.' - '.Yii::$app->name;
     <?php if (!empty($images)) {
         foreach ($images as $image) {
             ?>
-            <div class="col-12 col-md-2">
+            <div class="col-12 col-md-4">
                 <img src="<?= $image->getImage('small') ?>" alt="<?= $image->getTitle() ?>">
                 <?=
                     Html::beginForm(['/catalog/del-photo?id='.$model->id], 'post')

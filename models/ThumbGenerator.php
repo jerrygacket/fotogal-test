@@ -41,7 +41,7 @@ class ThumbGenerator
             $w = $imagick->getImageWidth();
             $h = $imagick->getImageHeight();
 
-            if ($w > $h) {
+            if ($w < $h) {
                 $resize_w = $w * $height / $h;
                 $resize_h = $height;
             }
@@ -59,7 +59,7 @@ class ThumbGenerator
             $imagick->setInterlaceScheme(Imagick::INTERLACE_JPEG);
             $imagick->transformImageColorspace(Imagick::COLORSPACE_SRGB);
             $imagick->resizeImage($resize_w, $resize_h, imagick::FILTER_LANCZOS, 1);
-            $imagick->cropImage($width, $height, ($resize_w - $width) / 2, ($resize_h - $height) / 2);
+//            $imagick->cropImage($width, $height, ($resize_w - $width) / 2, ($resize_h - $height) / 2);
             if ($sizeName === 'full') {
                 $imagick->writeImage($file);
             }
